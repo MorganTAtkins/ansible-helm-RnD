@@ -1,0 +1,12 @@
+---
+aqua_enforcer_token: 'foobar_token'
+aqua_server: 'https://23c5910b8b-d.cloud.aquasec.com'
+aqua_server_port: '8080'
+enforcer_version: '6.0'
+
+
+# Minikube version number
+minikube_version: '1.23.0'
+
+# Directory to store files downloaded for Minikube
+minikube_download_dir: "{{ x_ansible_download_dir | default(ansible_env.HOME + '/.ansible/tmp/downloads') }}"

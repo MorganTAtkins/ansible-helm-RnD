@@ -1,0 +1,18 @@
+---
+  - name: Playing with Ansible and Git
+    hosts: dev
+    hosts: localhost
+    connection: local
+    tasks:
+
+    - name: Git checkout
+      ansible.builtin.git:
+          repo: https://github.com/aquasecurity/aqua-helm.git
+          dest: /tmp/aqua-helm
+          version: '6.0'
+          force: yes
+          
+    - name: Go to the folder aqua-helm and run helm install
+      ansible.builtin.shell:
+        chdir: /tmp/aqua-helm
+        cmd: helm upgrade --install --namespace aqua aqua-enforcer ./enforcer --set imageCredentials.username='{{ docker_username }}',imageCredentials.password='{{docker_password}}',enforcerToken='{{aqua_enforcer_token}}',gate.host='{{aqua_server}}',gate.port='{{aqua_server_port}}',image.tag='{{enforcer_version}}',imageCredentials.create=true,imageCredentials.name='aqua-registry-secret',imageCredentials.repositoryUriPrefix='registry.aquasec.com',imageCredentials.registry='registry.aquasec.com',imageCredentials.username='aqua-registry-secret',serviceAccount.create=false,image.repository='enforcer'
